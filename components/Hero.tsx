@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
-import { Button } from "./ui/button";
+import { ReferForm } from "./ReferForm";
 
 const Hero = () => {
   return (
@@ -20,7 +20,7 @@ const Hero = () => {
                   <span className="text-[#1A73E8] text-xl font-bold">Rs. 15,000</span>
                 </span>
               </p>
-              <Button>Refer Now</Button>
+              <ReferForm/>
             </div>
             <div className="relative">
               <Image
