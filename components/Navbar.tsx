@@ -23,7 +23,7 @@ const Navbar = () => {
             Courses <ChevronDown />{" "}
           </Button>
         </div>
-        <div>
+        <div className="space-x-2">
           <Button variant="ghost">Refer & Earn</Button>
           <Button variant="ghost">Resources</Button>
           <Button variant="ghost">About Us</Button>

@@ -31,6 +31,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+enum CourseType {
+  course1 = "Full-Stack Web Development Certification",
+  course2 = "Machine Learning Specialist",
+  course3 = "Cybersecurity Professional Certification",
+}
+
 const formSchema = z.object({
   referrerName: z.string().min(1),
   referrerMail: z.string().email(),
@@ -55,8 +61,30 @@ export function ReferForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    let referrerAmt;
+    let refereeAmt;
+    if (values.course === CourseType.course1) {
+      referrerAmt = 7000;
+      refereeAmt = 8000;
+    } else if (values.course === CourseType.course2) {
+      referrerAmt = 5000;
+      refereeAmt = 6000;
+    } else {
+      referrerAmt = 4000;
+      refereeAmt = 5000;
+    }
+    const dataObj = { ...values, referrerAmt, refereeAmt };
+    const resp = await fetch("http://localhost:8000/refer", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dataObj),
+    });
+    if (!resp.ok) {
+      console.log("error");
+    }
+    const data = await resp.json();
+    console.log(data);
   }
 
   return (
