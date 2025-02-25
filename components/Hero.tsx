@@ -7,7 +7,7 @@ const Hero = () => {
     <>
       <Card className="shadow-lg">
         <CardContent className="pb-0">
-          <div className="flex">
+          <div className="flex gap-10">
             <div className="flex flex-col justify-center gap-3">
               <p className="font-bold text-2xl leading-8">
                 Let’s Learn
