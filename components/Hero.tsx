@@ -6,8 +6,8 @@ const Hero = () => {
   return (
     <>
       <Card className="shadow-lg">
-        <CardContent className="pb-0">
-          <div className="flex gap-10">
+        <CardContent className="pb-0 max-md:h-[500px] max-md:w-[300px]">
+          <div className="flex h-full gap-10 max-md:justify-center max-md:items-center  max-md:flex-col">
             <div className="flex flex-col justify-center gap-3">
               <p className="font-bold text-2xl leading-8">
                 Let’s Learn

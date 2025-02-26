@@ -30,6 +30,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 enum CourseType {
   course1 = "Full-Stack Web Development Certification",
@@ -50,6 +52,9 @@ const formSchema = z.object({
 });
 
 export function ReferForm() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -62,6 +67,7 @@ export function ReferForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true);
     let referrerAmt;
     let refereeAmt;
     if (values.course === CourseType.course1) {
@@ -75,24 +81,30 @@ export function ReferForm() {
       refereeAmt = 5000;
     }
     const dataObj = { ...values, referrerAmt, refereeAmt };
-    const resp = await fetch("http://localhost:8000/refer", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(dataObj),
-    });
+    const resp = await fetch(
+      "https://accredian-backend-task-n5fi.onrender.com/refer",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dataObj),
+      }
+    );
     if (!resp.ok) {
       console.log("error");
+    } else {
+      setIsOpen(false);
     }
-    const data = await resp.json();
-    console.log(data);
   }
 
   return (
-    <AlertDialog>
-      <AlertDialogTrigger className="bg-[#1A73E8] text-primary-foreground shadow hover:bg-primary/90 rounded-xl py-2 font-bold">
+    <AlertDialog open={isOpen}>
+      <AlertDialogTrigger
+        className="bg-[#1A73E8] text-primary-foreground shadow hover:bg-primary/90 rounded-xl py-2 font-bold"
+        onClick={() => setIsOpen(true)}
+      >
         Refer Now
       </AlertDialogTrigger>
-      <AlertDialogContent className="max-h-[600px] overflow-y-scroll">
+      <AlertDialogContent className="max-h-[650px] overflow-y-scroll max-md:w-[300px]">
         <AlertDialogHeader>
           <AlertDialogTitle>Enter Information</AlertDialogTitle>
           <Form {...form}>
@@ -180,12 +192,16 @@ export function ReferForm() {
                   </FormItem>
                 )}
               />
-              <Button type="submit">Submit</Button>
+              <Button type="submit" disabled={isLoading}>
+                Submit {isLoading && <Loader2 className="animate-spin" />}
+              </Button>
             </form>
           </Form>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel onClick={() => setIsOpen(false)}>
+            Cancel
+          </AlertDialogCancel>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

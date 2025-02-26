@@ -1,16 +1,16 @@
 "use client";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Menu } from "lucide-react";
 
 const Navbar = () => {
   return (
     <div className="mb-3 flex flex-col gap-4">
-      <div className="bg-blue-100 flex space-x-5 text-sm py-2 justify-center">
+      <div className="bg-blue-100 flex space-x-5 text-sm py-2 justify-center max-md:hidden">
         <p>Navigate your ideal career path with tailored expert advice</p>
         <p className="text-[#1A73E8]">Contact Expert</p>
       </div>
-      <nav className="flex justify-between px-4">
+      <nav className="flex justify-between px-4 max-md:mt-4">
         <div className="flex gap-3">
           <Image
             src="/logo.png"
@@ -23,12 +23,15 @@ const Navbar = () => {
             Courses <ChevronDown />{" "}
           </Button>
         </div>
-        <div className="space-x-2">
+        <div className="space-x-2 max-md:hidden">
           <Button variant="ghost">Refer & Earn</Button>
           <Button variant="ghost">Resources</Button>
           <Button variant="ghost">About Us</Button>
           <Button variant="secondary">Login</Button>
           <Button>Try for Free</Button>
+        </div>
+        <div className="max-md:block">
+            <Menu/>
         </div>
       </nav>
       <div className="w-full">
