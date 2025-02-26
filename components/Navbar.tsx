@@ -30,7 +30,7 @@ const Navbar = () => {
           <Button variant="secondary">Login</Button>
           <Button>Try for Free</Button>
         </div>
-        <div className="max-md:block">
+        <div className="max-md:block md:hidden">
             <Menu/>
         </div>
       </nav>
